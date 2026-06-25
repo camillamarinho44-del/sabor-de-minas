@@ -85,7 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "author", content: "Sabor de Minas" },
       { name: "theme-color", content: "#B71C1C" },
-      { property: "og:title", content: "Sabor de Minas" },
+      { property: "og:title", content: "Sabor de Minas — O verdadeiro sabor da comida mineira" },
       {
         property: "og:description",
         content: "O verdadeiro sabor da comida mineira.",
@@ -93,6 +93,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Sabor de Minas" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Sabor de Minas — O verdadeiro sabor da comida mineira" },
+      { name: "description", content: "Sabor de Minas Digital is a professional website showcasing artisanal Minas Gerais cuisine with modern UX/UI design." },
+      { property: "og:description", content: "Sabor de Minas Digital is a professional website showcasing artisanal Minas Gerais cuisine with modern UX/UI design." },
+      { name: "twitter:description", content: "Sabor de Minas Digital is a professional website showcasing artisanal Minas Gerais cuisine with modern UX/UI design." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a92a4537-0728-40d5-947a-a68ffd015cb1/id-preview-ffb2eacb--020292bf-2026-4ac2-ba8b-c5ebdb1c6191.lovable.app-1782423365338.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a92a4537-0728-40d5-947a-a68ffd015cb1/id-preview-ffb2eacb--020292bf-2026-4ac2-ba8b-c5ebdb1c6191.lovable.app-1782423365338.png" },
     ],
     links: [
       {
