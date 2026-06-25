@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, ShoppingBag, X } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { useCart } from "./CartContext";
 
 const links = [
   { href: "#sobre", label: "Sobre" },
@@ -15,6 +16,7 @@ const links = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { count, setOpen: setCartOpen } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -65,20 +67,40 @@ export function Navbar() {
           ))}
         </nav>
 
-        <a
-          href="#cardapio"
-          className="hidden lg:inline-flex items-center justify-center rounded-full bg-gradient-brand px-6 py-2.5 text-sm font-semibold text-white shadow-glow transition-transform hover:scale-[1.03] active:scale-[0.98]"
-        >
-          Fazer Pedido
-        </a>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setCartOpen(true)}
+            aria-label={`Abrir carrinho (${count} ${count === 1 ? "item" : "itens"})`}
+            className="relative grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+          >
+            <ShoppingBag size={18} />
+            {count > 0 && (
+              <motion.span
+                key={count}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="absolute -top-1 -right-1 grid h-5 min-w-[20px] place-items-center rounded-full bg-gold px-1 text-[10px] font-bold text-ink"
+              >
+                {count}
+              </motion.span>
+            )}
+          </button>
 
-        <button
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-          onClick={() => setOpen((v) => !v)}
-          className="lg:hidden grid place-items-center h-11 w-11 rounded-full bg-white/10 text-white"
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+          <a
+            href="#cardapio"
+            className="hidden lg:inline-flex items-center justify-center rounded-full bg-gradient-brand px-6 py-2.5 text-sm font-semibold text-white shadow-glow transition-transform hover:scale-[1.03] active:scale-[0.98]"
+          >
+            Fazer Pedido
+          </a>
+
+          <button
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            onClick={() => setOpen((v) => !v)}
+            className="lg:hidden grid place-items-center h-11 w-11 rounded-full bg-white/10 text-white"
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
