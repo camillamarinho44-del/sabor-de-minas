@@ -18,11 +18,13 @@ export function About() {
                 width={1200}
                 height={1200}
               />
-            </div>
-            <div className="absolute -bottom-6 -right-6 glass rounded-2xl px-6 py-4">
-              <div className="font-display text-3xl font-bold text-brand">+20</div>
-              <div className="text-xs uppercase tracking-widest text-muted-foreground">
-                anos de tradição
+              <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 pointer-events-none">
+                <div className="glass rounded-2xl px-5 py-3 pointer-events-auto">
+                  <div className="font-display text-3xl font-bold text-brand leading-none">+20</div>
+                  <div className="mt-1 text-[10px] uppercase tracking-widest text-white/90">
+                    anos de tradição
+                  </div>
+                </div>
               </div>
             </div>
           </div>

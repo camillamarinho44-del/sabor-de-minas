@@ -11,6 +11,9 @@ import { Gallery } from "@/components/site/Gallery";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 import { BackToTop } from "@/components/site/BackToTop";
+import { CartProvider } from "@/components/site/CartContext";
+import { CartDrawer } from "@/components/site/CartDrawer";
+import { ChatWidget } from "@/components/site/ChatWidget";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,19 +38,23 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground antialiased">
-      <Navbar />
-      <Hero />
-      <About />
-      <MenuSection />
-      <Promo />
-      <Hours />
-      <Testimonials />
-      <Gallery />
-      <Contact />
-      <Footer />
-      <BackToTop />
-      <Toaster position="bottom-right" theme="dark" richColors />
-    </main>
+    <CartProvider>
+      <main className="min-h-screen bg-background text-foreground antialiased">
+        <Navbar />
+        <Hero />
+        <About />
+        <MenuSection />
+        <Promo />
+        <Hours />
+        <Testimonials />
+        <Gallery />
+        <Contact />
+        <Footer />
+        <BackToTop />
+        <CartDrawer />
+        <ChatWidget />
+        <Toaster position="bottom-right" theme="dark" richColors />
+      </main>
+    </CartProvider>
   );
 }
