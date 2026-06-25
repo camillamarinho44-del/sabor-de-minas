@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Search } from "lucide-react";
 import { toast } from "sonner";
 import { Reveal } from "./Reveal";
+import { useCart, formatBRL } from "./CartContext";
 import galinhada from "@/assets/galinhada.jpg";
 import feijao from "@/assets/feijao-tropeiro.jpg";
 import strogonoff from "@/assets/strogonoff.jpg";
@@ -10,13 +11,21 @@ import bife from "@/assets/bife-pernil.jpg";
 import farofa from "@/assets/farofa.jpg";
 import refogado from "@/assets/refogado.jpg";
 import salada from "@/assets/salada.jpg";
+import frangoQuiabo from "@/assets/frango-quiabo.jpg";
+import tutu from "@/assets/tutu.jpg";
+import costelinha from "@/assets/costelinha.jpg";
+import pudim from "@/assets/pudim.jpg";
+import brigadeirao from "@/assets/brigadeirao.jpg";
+import doceLeite from "@/assets/doce-leite.jpg";
+
+type Category = "Pratos" | "Acompanhamentos" | "Sobremesas";
 
 type Dish = {
   id: string;
   name: string;
   desc: string;
   price: number;
-  category: "Pratos" | "Acompanhamentos";
+  category: Category;
   img: string;
 };
 
@@ -25,16 +34,23 @@ const dishes: Dish[] = [
   { id: "2", name: "Feijão Tropeiro", desc: "Feijão, farinha, bacon, linguiça e couve refogada.", price: 29.9, category: "Pratos", img: feijao },
   { id: "3", name: "Strogonoff de Frango", desc: "Cremoso, com arroz branco e batata palha crocante.", price: 34.9, category: "Pratos", img: strogonoff },
   { id: "4", name: "Bife de Pernil Empanado", desc: "Pernil suíno empanado, dourado e suculento.", price: 36.9, category: "Pratos", img: bife },
-  { id: "5", name: "Farofa da Casa", desc: "Farinha torrada com bacon, ovos e ervas frescas.", price: 14.9, category: "Acompanhamentos", img: farofa },
-  { id: "6", name: "Refogado de Couve", desc: "Couve mineira no alho, na medida certa.", price: 12.9, category: "Acompanhamentos", img: refogado },
-  { id: "7", name: "Salada Fresca", desc: "Alface, tomate e cebola roxa com molho da casa.", price: 11.9, category: "Acompanhamentos", img: salada },
+  { id: "5", name: "Frango com Quiabo", desc: "Receita tradicional no caldo cremoso de quiabo e açafrão.", price: 35.9, category: "Pratos", img: frangoQuiabo },
+  { id: "6", name: "Tutu de Feijão", desc: "Feijão cremoso com bacon, torresmo e couve refogada.", price: 31.9, category: "Pratos", img: tutu },
+  { id: "7", name: "Costelinha ao Molho", desc: "Costela suína assada com purê rústico de mandioca.", price: 39.9, category: "Pratos", img: costelinha },
+  { id: "8", name: "Farofa da Casa", desc: "Farinha torrada com bacon, ovos e ervas frescas.", price: 14.9, category: "Acompanhamentos", img: farofa },
+  { id: "9", name: "Refogado de Couve", desc: "Couve mineira no alho, na medida certa.", price: 12.9, category: "Acompanhamentos", img: refogado },
+  { id: "10", name: "Salada Fresca", desc: "Alface, tomate e cebola roxa com molho da casa.", price: 11.9, category: "Acompanhamentos", img: salada },
+  { id: "11", name: "Pudim de Leite", desc: "Cremoso, com calda de caramelo na medida certa.", price: 14.9, category: "Sobremesas", img: pudim },
+  { id: "12", name: "Brigadeirão", desc: "Versão gigante e cremosa do clássico brigadeiro.", price: 15.9, category: "Sobremesas", img: brigadeirao },
+  { id: "13", name: "Doce de Leite com Queijo", desc: "Combinação mineira clássica em porção generosa.", price: 13.9, category: "Sobremesas", img: doceLeite },
 ];
 
-const cats = ["Todos", "Pratos", "Acompanhamentos"] as const;
+const cats = ["Todos", "Pratos", "Acompanhamentos", "Sobremesas"] as const;
 
 export function MenuSection() {
   const [cat, setCat] = useState<(typeof cats)[number]>("Todos");
   const [q, setQ] = useState("");
+  const { add, setOpen } = useCart();
 
   const filtered = useMemo(
     () =>
@@ -138,10 +154,15 @@ export function MenuSection() {
                   </div>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{d.desc}</p>
                   <button
-                    onClick={() => toast.success(`${d.name} adicionado ao pedido`)}
+                    onClick={() => {
+                      add({ id: d.id, name: d.name, price: d.price, img: d.img });
+                      toast.success(`${d.name} adicionado`, {
+                        action: { label: "Ver carrinho", onClick: () => setOpen(true) },
+                      });
+                    }}
                     className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink py-3 text-sm font-semibold text-white transition-all hover:bg-brand active:scale-[0.98] dark:bg-brand dark:hover:bg-gold dark:hover:text-ink"
                   >
-                    <Plus size={16} /> Adicionar
+                    <Plus size={16} /> Adicionar • {formatBRL(d.price)}
                   </button>
                 </div>
               </motion.article>
